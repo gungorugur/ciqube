@@ -1,0 +1,18 @@
+pipeline {
+    agent none
+    stages {
+        stage('Quality Gate Check') {
+            
+            agent {
+                docker {
+                    image "ciqube-agent:v1"
+                    registryUrl "http://myinternalregistry.local"
+                }
+            }
+           
+            steps {       
+                sh "ciqube --host http://sonarqube.mycompany.com --token MY_TOKEN --projectkey MY_PROJECT_KEY --fail"
+           }
+        }
+    }
+}
