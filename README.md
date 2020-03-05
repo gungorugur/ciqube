@@ -50,18 +50,21 @@ pipeline {
 }
 ```
 
-You need to pass host, projectkey and sonarqube token. If you pass --fail parameter pipeline will break according to quality gate result.
+You need to pass host, projectkey and sonarqube token. If you pass --fail parameter pipeline will break according to quality gate result. If you want to wait for background task completing then pass to --wait-progress parameter.
 
 ```
-Usage of ciqube:
   -fail
         Pipeline fails, if quality gateway fails (Optional)
   -host string
         Sonarqube Host URL (Required)
   -projectkey string
         Sonarqube Project Key (Required)
+  -timeout int
+        Timeout for wait progress in seconds (Optional) (default 300)
   -token string
         Sonarqube Token (Required)
+  -wait-progress
+        Wait for background tasks if exists (Optional)
 
 ```
 
@@ -74,8 +77,10 @@ Usage of ciqube:
 #### Example failed pipeline with fail parameter.
 <img src="assets/pipelinedemo3.jpeg" width="600">
 
+#### Example succeeded pipeline with wait-progress parameter.
+<img src="assets/pipelinedemo4.jpeg" width="600">
+
 
 ### TODO
 
-- [ ] Add more tests
-- [ ] Add wait-progress flag for background tasks in the queue
+- Add more tests

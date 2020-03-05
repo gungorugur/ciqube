@@ -16,7 +16,14 @@ func main() {
 	token := flag.String("token", "", "Sonarqube Token (Required)")
 	projectKey := flag.String("projectkey", "", "Sonarqube Project Key (Required)")
 	fail := flag.Bool("fail", false, "Pipeline fails, if quality gateway fails (Optional)")
+	waitProgress := flag.Bool("wait-progress", false, "Wait for background tasks if exists (Optional)")
+	waitProgressTimeout := flag.Int("timeout", 300, "Timeout for wait progress in seconds (Optional)")
 	flag.Parse()
+
+	if *waitProgress {
+		err := sonarqube.CheckBackgroundTask(*host, *token, *projectKey, *waitProgressTimeout, httpclient.New(http.DefaultClient))
+		exitOnError(err)
+	}
 
 	projectStatus, err := sonarqube.GetQualityGateProjectStatus(*host, *token, *projectKey, httpclient.New(http.DefaultClient))
 
