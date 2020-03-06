@@ -4,9 +4,8 @@ pipeline {
         stage('Quality Gate Check') {
             
             agent {
-                docker {
-                    image "ciqube-agent:v1"
-                    registryUrl "http://myinternalregistry.local"
+                 docker {
+                    image "ugurgungor/ciqube"
                 }
             }
            
