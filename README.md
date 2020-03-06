@@ -4,29 +4,9 @@ A simple sonarqube quality gate result checking tool. Put your sonarqube quality
 
 ## Installation and Usage
 
-Ciqube designed for working in ci/cd pipelines. For my case I use it in Jenkins Pipelines by using docker agents. I've built docker image using Dockerfile below, then pushed it to my internal registry. You can simply use it in CircleCi, Gitlab Ci, Azure DevOps etc because they all already support docker agents or dockerfiles.
+Ciqube designed for working in ci/cd pipelines. You can simply use it in CircleCi, Gitlab Ci, Azure DevOps etc because they all already support docker agents or dockerfiles. Checkout dockerhub for related images.
 
-### Dockerfile
-```
-FROM golang:1.13 as builder
-
-ENV GO111MODULE=on
-
-WORKDIR /app
-
-RUN git clone https://github.com/gungorugur/ciqube.git
-
-WORKDIR /app/ciqube
-
-RUN go mod download
-
-RUN CGO_ENABLED=0 GOOS=linux go build -o ciqube cmd/ciqube.go
-
-FROM alpine:latest
-
-COPY --from=builder /app/ciqube/ciqube /usr/local/bin/ciqube
-
-```
+[Ciqube Dockerhub](https://hub.docker.com/r/ugurgungor/ciqube)
 
 ### Example Jenkins Pipeline
 ```
@@ -37,8 +17,7 @@ pipeline {
             
             agent {
                 docker {
-                    image "ciqube-agent:v1"
-                    registryUrl "http://myinternalregistry.local"
+                    image "ugurgungor/ciqube"
                 }
             }
            
@@ -69,16 +48,16 @@ You need to pass host, projectkey and sonarqube token. If you pass --fail parame
 ```
 
 #### Example succeeded pipeline without fail parameter.
-<img src="assets/pipelinedemo1.jpeg" width="600">
+<img src="https://raw.githubusercontent.com/gungorugur/ciqube/master/assets/pipelinedemo1.jpeg" width="600">
 
 #### Example succeeded pipeline with fail parameter.
-<img src="assets/pipelinedemo2.jpeg" width="600">
+<img src="https://raw.githubusercontent.com/gungorugur/ciqube/master/assets/pipelinedemo2.jpeg" width="600">
 
 #### Example failed pipeline with fail parameter.
-<img src="assets/pipelinedemo3.jpeg" width="600">
+<img src="https://raw.githubusercontent.com/gungorugur/ciqube/master/assets/pipelinedemo3.jpeg" width="600">
 
 #### Example succeeded pipeline with wait-progress parameter.
-<img src="assets/pipelinedemo4.jpeg" width="600">
+<img src="https://raw.githubusercontent.com/gungorugur/ciqube/master/assets/pipelinedemo4.jpeg" width="600">
 
 
 ### TODO
