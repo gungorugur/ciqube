@@ -1,4 +1,12 @@
-# Ciqube
+#Important!
+
+Sonarqube now supports quality gate checking.
+
+https://docs.sonarqube.org/latest/analysis/ci-integration-overview/
+
+This repository archived.
+
+#Ciqube
 
 A simple sonarqube quality gate result checking tool. Put your sonarqube quality gate results to ci/cd pipelines, break pipelines according to quality gate result if you want to.
 
